@@ -1,1 +1,0 @@
-# Mark-And-Larry-Adventure
