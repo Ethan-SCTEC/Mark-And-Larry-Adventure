@@ -2,38 +2,70 @@ package tilegame.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class KeyManager implements KeyListener{
 
-	private boolean[] keys;
+	private ArrayList<KeyEvent> keys;
+	private boolean[] keysDown;
 	public boolean up, down, left, right, w, a, s, d;
 	
 	public KeyManager() {
-		keys = new boolean[256];
+		keysDown = new boolean[256];
+		keys = new ArrayList<KeyEvent>();
 	}
 
 	public void tick() {
-		up = keys[KeyEvent.VK_UP];
-		w = keys[KeyEvent.VK_W];
+		up = keysDown[KeyEvent.VK_UP];
+		w = keysDown[KeyEvent.VK_W];
 		
-		down = keys[KeyEvent.VK_DOWN];
-		s = keys[KeyEvent.VK_S];
+		down = keysDown[KeyEvent.VK_DOWN];
+		s = keysDown[KeyEvent.VK_S];
 		
-		left = keys[KeyEvent.VK_LEFT];
-		a = keys[KeyEvent.VK_A];
+		left = keysDown[KeyEvent.VK_LEFT];
+		a = keysDown[KeyEvent.VK_A];
 		
-		right = keys[KeyEvent.VK_RIGHT];
-		d = keys[KeyEvent.VK_D];
+		right = keysDown[KeyEvent.VK_RIGHT];
+		d = keysDown[KeyEvent.VK_D];
+		
+//		for(int i = 0; i < keys.size(); i++) {
+//			System.out.println(keys.get(i).getKeyChar());
+//		}
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = true;
+		keysDown[e.getKeyCode()] = true;
+//		System.out.println("Pressed: " + e.getKeyChar());
+		int counter = 0;
+		if(keys.size() > 0) {
+			for(KeyEvent key : keys) {
+				if(key.getKeyCode() == e.getKeyCode()) {
+					counter ++;
+				}
+			}
+			if(counter == 0) {
+				keys.add(e);
+			}
+		}
+		else {
+			keys.add(e);
+		}
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		keys[e.getKeyCode()] = false;
+		keysDown[e.getKeyCode()] = false;
+		if(keys.size() > 0) {
+			for(int i = 0; i < keys.size(); i++) {
+				KeyEvent key = keys.get(i);
+//				System.out.println("Released: " + key.getKeyChar());
+				if(key.getKeyCode() == e.getKeyCode()) {
+					keys.remove(i);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -41,4 +73,17 @@ public class KeyManager implements KeyListener{
 		
 	}
 	
+	public int getLastKeyHeld() {
+		if(keys.size() > 0) {			
+			return keys.get(keys.size() - 1).getKeyCode();
+		}
+		return -1;
+	}
+	
+	public int getFirstKeyHeld() {
+		if(keys.size() > 0) {			
+			return keys.get(0).getKeyCode();
+		}
+		return -1;
+	}
 }

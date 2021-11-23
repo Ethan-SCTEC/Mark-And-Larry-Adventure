@@ -15,22 +15,26 @@ public class Assets {
 		SpriteSheet sheet = new SpriteSheet(imageLoader.loadImage("/textures/SpriteSheet.png"));
 		
 		//row 1
-		grass = sheet.crop(0,0,width,height);
-		dirt = sheet.crop(width, 0, width, height);
-		tile = sheet.crop(width*2,0,width,height);
-		flower = sheet.crop(width*3, 0, width, height);
-		bob = sheet.crop(width*4,0,width,height);
-		bob_walk = sheet.crop(width*5,0,width,height);
+		grass = getSheetTile(sheet, 0, 0);
+		dirt = getSheetTile(sheet, 1, 0);
+		tile = getSheetTile(sheet, 2, 0);
+		flower = getSheetTile(sheet, 3, 0);
+		bob = getSheetTile(sheet, 4, 0);
+		bob_walk = getSheetTile(sheet, 5, 0);
 		
 		//row 2
-		water = sheet.crop(0,height,width,height);
-		stone = sheet.crop(width, height, width, height);
-		sun_back = sheet.crop(width*2, height, width, height);
-		fox = sheet.crop(width*3, height, width, height);
+		water = getSheetTile(sheet, 0, 1);
+		stone = getSheetTile(sheet, 1, 1);
+		sun_back = getSheetTile(sheet, 2, 1);
+		fox = getSheetTile(sheet, 3, 1);
 		
 		
 		//funny
 		missingNo = sheet.crop(width*7, height*7, width, height);
+	}
+	
+	public static BufferedImage getSheetTile(SpriteSheet sheet, int x, int y) {
+		return sheet.crop(width*x, height*y, width, height);
 	}
 	
 }
