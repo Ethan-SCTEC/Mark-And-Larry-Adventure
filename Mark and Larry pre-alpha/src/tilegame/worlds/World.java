@@ -2,7 +2,6 @@ package tilegame.worlds;
 
 import java.awt.Graphics;
 
-import tilegame.Game;
 import tilegame.Handler;
 import tilegame.tiles.Tile;
 import tilegame.utils.Utils;
@@ -18,6 +17,14 @@ public class World {
 		this.handler = handler;
 		loadWorld(path);
 		
+	}
+	
+	public int getSpawnX() {
+		return spawnX;
+	}
+	
+	public int getSpawnY() {
+		return spawnY;
 	}
 	
 	public void tick() {

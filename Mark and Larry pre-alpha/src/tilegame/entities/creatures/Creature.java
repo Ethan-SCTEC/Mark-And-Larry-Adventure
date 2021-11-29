@@ -1,6 +1,5 @@
 package tilegame.entities.creatures;
 
-import tilegame.Game;
 import tilegame.Handler;
 import tilegame.entities.Entity;
 
