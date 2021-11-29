@@ -2,9 +2,9 @@ package tilegame.states;
 
 import java.awt.Graphics;
 
-import tilegame.Game;
 import tilegame.Handler;
 import tilegame.entities.creatures.Player;
+import tilegame.tiles.Tile;
 import tilegame.worlds.World;
 
 public class GameState extends State{
@@ -16,7 +16,7 @@ public class GameState extends State{
 		super(handler);
 		world = new World(handler, "res/worlds/DebugWorld.txt");
 		handler.setWorld(world);
-		player = new Player(handler,200,200);
+		player = new Player(handler,world.getSpawnX() * Tile.TILEWIDTH,world.getSpawnY() * Tile.TILEHEIGHT);
 		
 		
 	}
